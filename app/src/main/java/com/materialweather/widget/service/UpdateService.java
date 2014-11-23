@@ -20,6 +20,10 @@ public class UpdateService extends Service {
 
     public static final String TAG = Service.class.getSimpleName();
 
+    public static final String PARAM_CITY = "param_city";
+
+    private static final String BASE_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
+
     private RequestQueue queue;
 
     private static ArrayList<UpdateInterface> interfaces = new ArrayList<UpdateInterface>();
@@ -54,7 +58,9 @@ public class UpdateService extends Service {
         super.onStartCommand(intent, flags, startId);
         Log.d(TAG, "onStartCommand");
 
-        String url = "http://api.openweathermap.org/data/2.5/weather?q=London,uk";
+        String city = intent.getStringExtra(PARAM_CITY);
+
+        String url = BASE_URL + city;
 
         queue.add(new OpenWeatherRequest(url, null, new Response.Listener<OpenWeatherData>() {
             @Override

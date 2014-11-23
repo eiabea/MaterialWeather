@@ -7,6 +7,13 @@
     android:orientation="vertical"
     tools:context=".MainActivity$PlaceholderFragment">
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Vienna, AT"
+        android:text="Vienna, AT"
+        android:id="@+id/edt_main_city"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
