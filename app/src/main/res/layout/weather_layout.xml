@@ -15,7 +15,8 @@
             android:textColor="#E3F2FD"
             android:layout_marginLeft="10dp"
             android:gravity="fill_vertical"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-thin" />
     </LinearLayout>
     <LinearLayout android:id="@+id/contentbar"
         android:layout_width="match_parent"
@@ -34,14 +35,51 @@
             android:layout_height="match_parent"
             android:text="39°"
             android:textColor="#E3F2FD"
-            android:textSize="68sp"
-            android:gravity="fill_vertical" />
+            android:textSize="64sp"
+            android:gravity="fill_vertical"
+            android:fontFamily="sans-serif-thin" />
     </LinearLayout>
     <RelativeLayout android:id="@+id/footerbar"
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="80dp"
         android:layout_below="@id/contentbar"
-        android:background="#E3F2FD">
+        android:background="#E3F2FD"
+        android:gravity="center_horizontal">
+        <TextView android:id="@+id/txtHour"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="10"
+            android:textColor="#000"
+            android:textSize="54sp"
+            android:gravity="fill_vertical"
+            android:fontFamily="sans-serif" />
+        <TextView android:id="@+id/txtMinute"
+            android:layout_toRightOf="@id/txtHour"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=":59"
+            android:textColor="#000"
+            android:textSize="54sp"
+            android:gravity="fill_vertical"
+            android:fontFamily="sans-serif-thin" />
+        <TextView android:id="@+id/txtTimeUp"
+            android:layout_toRightOf="@id/txtMinute"
+            android:layout_width="wrap_content"
+            android:layout_height="54sp"
+            android:text="PM"
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:gravity="fill_vertical"
+            android:fontFamily="sans-serif-thin" />
+        <TextView android:id="@+id/txtDate"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PM"
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:gravity="fill_vertical"
+            android:fontFamily="sans-serif-thin" />
     </RelativeLayout>
     <ImageButton
         android:id="@+id/fab"
@@ -52,5 +90,5 @@
         android:background="@drawable/buttonripple"
         android:src="@android:drawable/ic_input_add"
         android:elevation="4dp"
-        android:layout_marginRight="50dp" />
+        android:layout_marginRight="40dp" />
 </RelativeLayout>
