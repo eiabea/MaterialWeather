@@ -1,7 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="216dp"
     android:orientation="vertical">
-
-</LinearLayout>
+    <LinearLayout android:id="@+id/headerbar"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:orientation="horizontal"
+        android:background="#2196F3">
+        <TextView android:id="@+id/txtCity"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Amman, Jordan"
+            android:textColor="#E3F2FD"
+            android:layout_marginLeft="10dp"
+            android:gravity="fill_vertical"
+            android:textSize="16sp" />
+    </LinearLayout>
+    <LinearLayout android:id="@+id/contentbar"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_below="@id/headerbar"
+        android:background="#90CAF9"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <ImageView android:id="@+id/imgWeather"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_launcher"
+            android:layout_marginRight="20dp" />
+        <TextView android:id="@+id/txtDegree"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="39°"
+            android:textColor="#E3F2FD"
+            android:textSize="68sp"
+            android:gravity="fill_vertical" />
+    </LinearLayout>
+    <RelativeLayout android:id="@+id/footerbar"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_below="@id/contentbar"
+        android:background="#E3F2FD">
+    </RelativeLayout>
+    <ImageButton
+        android:id="@+id/fab"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/buttonripple"
+        android:src="@android:drawable/ic_input_add"
+        android:elevation="4dp"
+        android:layout_marginRight="50dp" />
+</RelativeLayout>
