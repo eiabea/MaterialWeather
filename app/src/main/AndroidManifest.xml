@@ -25,6 +25,12 @@
             android:enabled="true"
             android:exported="false" >
         </service>
+
+        <provider
+            android:name=".data.DataProvider"
+            android:authorities="com.materialweather.widget.data"
+            android:exported="false" >
+        </provider>
     </application>
 
 </manifest>

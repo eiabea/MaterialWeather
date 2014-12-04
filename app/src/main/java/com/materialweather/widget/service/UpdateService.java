@@ -5,13 +5,14 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.android.volley.NetworkResponse;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.materialweather.widget.data.DataProvider;
+import com.materialweather.widget.model.City;
 import com.materialweather.widget.model.OpenWeatherData;
+import com.materialweather.widget.util.App;
 import com.materialweather.widget.util.OpenWeatherRequest;
 
 import java.util.ArrayList;
@@ -65,15 +66,28 @@ public class UpdateService extends Service {
         queue.add(new OpenWeatherRequest(url, null, new Response.Listener<OpenWeatherData>() {
             @Override
             public void onResponse(OpenWeatherData data) {
-                Log.d(TAG, "onResponse: " + data.getName());
-                data.dump();
-                onData(data);
+                if(data.isValid()){
+                    Log.d(TAG, "onResponse: " + data.getName());
+
+                    data.dump();
+                    onData(data);
+
+                    City city = new City();
+                    city.setCityId(data.getId());
+                    city.setName(data.getName());
+                    city.setWeatherJson(App.getInstance().getGson().toJson(data));
+
+                    DataProvider.insertOrUpdateCity(getApplicationContext(), city);
+                }else{
+                    onError("Couldn't find city, sorry!");
+                }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d(TAG, "onErrorResponse");
+                onError("Some kind of servererror!");
             }
         }));
 
@@ -87,7 +101,14 @@ public class UpdateService extends Service {
         }
     }
 
+    private void onError(String message){
+        for(UpdateInterface tmpInterface : interfaces){
+            tmpInterface.onError(message);
+        }
+    }
+
     public interface UpdateInterface{
         public void onData(OpenWeatherData data);
+        public void onError(String message);
     }
 }

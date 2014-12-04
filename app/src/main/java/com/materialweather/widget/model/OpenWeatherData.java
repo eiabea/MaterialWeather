@@ -24,6 +24,10 @@ public class OpenWeatherData {
     private String name;
     private int cod;
 
+    public boolean isValid(){
+        return cod != 404 ? true : false;
+    }
+
     public Coord getCoord() {
         return coord;
     }
