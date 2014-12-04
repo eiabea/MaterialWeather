@@ -1,5 +1,7 @@
 package com.materialweather.widget.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -30,6 +32,7 @@ public class MainFragment extends Fragment implements UpdateService.UpdateInterf
     private View rootView;
 
     private Button btnReload;
+    private Button btnAddCity;
     private TextView txtData;
     private EditText edtCity;
     private ListView lvCities;
@@ -75,6 +78,7 @@ public class MainFragment extends Fragment implements UpdateService.UpdateInterf
 
     private void initUi(){
         edtCity = (EditText) rootView.findViewById(R.id.edt_main_city);
+        btnAddCity = (Button) rootView.findViewById(R.id.btn_main_add_city);
         btnReload = (Button) rootView.findViewById(R.id.btn_main_reload);
 //        txtData = (TextView) rootView.findViewById(R.id.txt_main_data);
 
@@ -85,21 +89,71 @@ public class MainFragment extends Fragment implements UpdateService.UpdateInterf
         btnReload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent updateIntent = new Intent(getActivity(), UpdateService.class);
-                updateIntent.putExtra(UpdateService.PARAM_CITY, edtCity.getText().toString());
+                updateIntent.putExtra(UpdateService.PARAM_ACTION, UpdateService.Action.RELOAD_ALL_CITIES);
 
                 getActivity().startService(updateIntent);
+            }
+        });
+
+        btnAddCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent searchIntent = new Intent(getActivity(), UpdateService.class);
+                searchIntent.putExtra(UpdateService.PARAM_ACTION, UpdateService.Action.SEARCH_CITY);
+                searchIntent.putExtra(UpdateService.PARAM_SEARCH_STRING, edtCity.getText().toString());
+
+                getActivity().startService(searchIntent);
             }
         });
 
         lvCities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                DataProvider.deleteCity(getActivity(), id);
+                showDialog(id, view);
             }
         });
 
+    }
+
+    // TODO remove
+    // just for debugging
+    private void showDialog(final long id, final View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("[DEBUG] What do you want??");
+        builder.setItems(new CharSequence[] {"Delete City", "Update City Weather"},
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+
+                                DataProvider.deleteCity(getActivity(), id);
+
+                                break;
+
+                            case 1:
+
+                                CityListAdapter.CityViewHolder viewHolder = (CityListAdapter.CityViewHolder) view.getTag();
+
+                                long cityId = viewHolder.getCityId();
+
+                                Intent updateIntent = new Intent(getActivity(), UpdateService.class);
+                                updateIntent.putExtra(UpdateService.PARAM_ACTION, UpdateService.Action.RELOAD_ONE_CITY);
+                                updateIntent.putExtra(UpdateService.PARAM_CITY_ID, cityId);
+
+                                getActivity().startService(updateIntent);
+
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                });
+
+        builder.show();
     }
 
     private void fillUp() {

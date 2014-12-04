@@ -40,7 +40,13 @@ public class CityListAdapter extends CursorAdapter {
     }
 
     public static class CityViewHolder {
+        long cityId;
+
         TextView txtTitle;
+
+        public long getCityId() {
+            return cityId;
+        }
     }
 
     @Override
@@ -49,6 +55,8 @@ public class CityListAdapter extends CursorAdapter {
 
         City city = new City(cursor);
         OpenWeatherData data = App.getInstance().getGson().fromJson(city.getWeatherJson(), OpenWeatherData.class);
+
+        viewHolder.cityId = city.getCityId();
 
         if(city.getCityId() != 0){
             viewHolder.txtTitle.setText(city.getName() + " - " + Helper.formatCelsius(Helper.kelvinToCelsius(data.getMain().getTemp())));

@@ -4,6 +4,9 @@ import android.util.Log;
 
 import com.materialweather.widget.util.App;
 
+import org.apache.http.HttpStatus;
+import org.apache.http.protocol.HTTP;
+
 import java.util.ArrayList;
 
 /**
@@ -25,7 +28,7 @@ public class OpenWeatherData {
     private int cod;
 
     public boolean isValid(){
-        return cod != 404 ? true : false;
+        return cod == HttpStatus.SC_OK;
     }
 
     public Coord getCoord() {
