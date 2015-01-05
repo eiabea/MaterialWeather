@@ -1,13 +1,9 @@
 package com.materialweather.widget.util;
 
 import android.app.Application;
-import android.content.Intent;
 import android.util.Log;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.materialweather.widget.service.UpdateService;
 
 /**
  * Created by eiabea on 11/23/14.
@@ -23,6 +19,10 @@ public class App extends Application {
 
     private Gson gson;
 
+    public static App getInstance() {
+        return me;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -35,11 +35,7 @@ public class App extends Application {
 
     }
 
-    public static App getInstance(){
-        return me;
-    }
-
-    public Gson getGson(){
+    public Gson getGson() {
         return gson;
     }
 }

@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.materialweather.widget.R;
 import com.materialweather.widget.model.OpenWeatherData;
 import com.materialweather.widget.service.UpdateService;
-import com.materialweather.widget.util.Helper;
 
 public class MainFragment extends Fragment implements UpdateService.UpdateInterface {
 
@@ -23,15 +22,15 @@ public class MainFragment extends Fragment implements UpdateService.UpdateInterf
     private TextView txtData;
     private EditText edtCity;
 
+    public MainFragment() {
+        // Required empty public constructor
+    }
+
     public static MainFragment newInstance() {
         MainFragment fragment = new MainFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public MainFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -57,13 +56,13 @@ public class MainFragment extends Fragment implements UpdateService.UpdateInterf
         return rootView;
     }
 
-    private void initUi(){
+    private void initUi() {
         edtCity = (EditText) rootView.findViewById(R.id.edt_main_city);
         btnReload = (Button) rootView.findViewById(R.id.btn_main_reload);
         txtData = (TextView) rootView.findViewById(R.id.txt_main_data);
     }
 
-    private void setListener(){
+    private void setListener() {
         btnReload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

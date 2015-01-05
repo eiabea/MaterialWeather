@@ -8,7 +8,6 @@ import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.materialweather.widget.model.OpenWeatherData;
 

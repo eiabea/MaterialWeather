@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Created by eiabea on 11/23/14.
  */
 public class OpenWeatherData {
-    public  static final String TAG = OpenWeatherData.class.getSimpleName();
+    public static final String TAG = OpenWeatherData.class.getSimpleName();
 
     private Coord coord;
     private Sys sys;
@@ -112,7 +112,7 @@ public class OpenWeatherData {
         this.cod = cod;
     }
 
-    public String dump(){
+    public String dump() {
         String jsonDump = App.getInstance().getGson().toJson(this);
         Log.d(TAG, jsonDump);
 

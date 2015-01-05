@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.android.volley.NetworkResponse;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.materialweather.widget.model.OpenWeatherData;
 import com.materialweather.widget.util.OpenWeatherRequest;
@@ -23,13 +21,15 @@ public class UpdateService extends Service {
     public static final String PARAM_CITY = "param_city";
 
     private static final String BASE_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
-
-    private RequestQueue queue;
-
     private static ArrayList<UpdateInterface> interfaces = new ArrayList<UpdateInterface>();
+    private RequestQueue queue;
 
     public UpdateService() {
 
+    }
+
+    public static void addUpdateInterface(UpdateInterface interfaceToAdd) {
+        interfaces.add(interfaceToAdd);
     }
 
     @Override
@@ -41,10 +41,6 @@ public class UpdateService extends Service {
         queue.start();
 
         Log.d(TAG, "RequestQueue started");
-    }
-
-    public static void addUpdateInterface(UpdateInterface interfaceToAdd){
-        interfaces.add(interfaceToAdd);
     }
 
     @Override
@@ -81,13 +77,13 @@ public class UpdateService extends Service {
         return START_NOT_STICKY;
     }
 
-    private void onData(OpenWeatherData data){
-        for(UpdateInterface tmpInterface : interfaces){
+    private void onData(OpenWeatherData data) {
+        for (UpdateInterface tmpInterface : interfaces) {
             tmpInterface.onData(data);
         }
     }
 
-    public interface UpdateInterface{
+    public interface UpdateInterface {
         public void onData(OpenWeatherData data);
     }
 }
